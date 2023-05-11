@@ -22,4 +22,16 @@ app.post('/createTask', (request, response) => {
     });
 });
 
+app.get('/getAllTasks', (request, response) => {
+    dataBase.query('SELECT * FROM tb_task', (error, result) => {
+        if(error) {
+            console.log('Fail to get all tasks !');
+            response.send(error);
+            console.log(error);
+        }
+
+        response.send(result);
+    });
+});
+
 module.exports = app;

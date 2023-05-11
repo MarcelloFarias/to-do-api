@@ -1,4 +1,4 @@
-const routes = require('./src/app/index')
+const routes = require('./src/routes/routes');
 const express = require('express');
 const app = express();
 const cors = require('cors');
