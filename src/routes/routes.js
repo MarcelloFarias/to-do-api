@@ -34,4 +34,18 @@ app.get('/getAllTasks', (request, response) => {
     });
 });
 
+app.delete('/deleteTask/:id', (request, response) => {
+    const { id } = request.params;
+
+    dataBase.query('DELETE FROM tb_task WHERE id = ?', [id], (error, result) => {
+        if(error) {
+            console.log('Fail to delete a task !');
+            response.send(error);
+            console.log(error);
+        }
+
+        response.send(result);
+    });
+});
+
 module.exports = app;
