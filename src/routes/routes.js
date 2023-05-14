@@ -35,7 +35,7 @@ app.get('/getAllTasks', (request, response) => {
 });
 
 app.delete('/deleteTask/:id', (request, response) => {
-    const { id } = request.params;
+    const id = request.params.id;
 
     dataBase.query('DELETE FROM tb_task WHERE id = ?', [id], (error, result) => {
         if(error) {
@@ -47,5 +47,21 @@ app.delete('/deleteTask/:id', (request, response) => {
         response.send(result);
     });
 });
+
+app.put('/updateTask/:id', (request, response) => {
+    const id = request.params.id;
+    const title = request.body.title;
+    const description = request.body.description;
+
+    dataBase.query('UPDATE tb_task SET titulo = ?, descricao = ? WHERE id = ?', [title, description, id], (error, result) => {
+        if(error) {
+            console.log('Fail to update task !');
+            response.send(error);
+            console.log(error);
+        }
+
+        response.send(result);
+    });
+}); 
 
 module.exports = app;
