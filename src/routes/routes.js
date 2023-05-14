@@ -64,4 +64,19 @@ app.put('/updateTask/:id', (request, response) => {
     });
 }); 
 
+app.put('/updateStatus/:id', (request, response) => {
+    const id = request.params.id;
+    const currentStatus = request.body.currentStatus;
+
+    dataBase.query('UPDATE tb_task SET status = ? WHERE id = ?', [currentStatus === 'pendente' ? 'concluído' : 'pendente', id], (error, result) => {
+        if(error) {
+            console.log('Fail to update a task status !');
+            console.log(error);
+            response.send(error);
+        }
+
+        response.send(result);
+    });
+});
+
 module.exports = app;
